@@ -1,0 +1,209 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    overflow: hidden;
+}
+
+.container-fluid {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    max-width: 1920px;
+    margin: 0;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 300px;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+}
+
+.main-content {
+    margin-left: 300px;
+    width: calc(100vw - 300px);
+    height: 100vh;
+    padding: 10px;
+    background-color: white;
+    overflow: auto;
+}
+
+/* Table-like structure */
+.table-container {
+    width: 100%;
+    display: table;
+    text-align: center;
+}
+
+/* Table header */
+.table-header {
+    display: table-row;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 10px 0;
+}
+
+/* Table rows */
+.table-row {
+    display: table-row;
+    font-size: 0.9rem;
+}
+
+/* Table columns */
+.table-cell {
+    display: table-cell;
+    padding: 10px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+/* Column width adjustments */
+.table-cell:nth-child(3), /* Upload Files */
+.table-cell:nth-child(6), /* Comment */
+.table-cell:nth-child(7) { /* Feedback */
+    white-space: normal;
+    word-wrap: break-word;
+    text-align: left;
+}
+
+/* Dots for timeline */
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-top: 5px;
+    position: relative;
+}
+
+.small-dot {
+    width: 8px;
+    height: 8px;
+}
+
+.dot.green {
+    background-color: #4caf50;
+}
+
+.dot.red {
+    background-color: #f44336;
+}
+
+.dot.gray {
+    background-color: #888;
+}
+
+/* Track line */
+.line {
+    width: 2px;
+    height: 15px;
+    background-color: #ddd;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Adjust line spacing */
+.track-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.track-container .dot + .dot {
+    margin-top: -5px; /* Reduce spacing between dots */
+}
+
+/* Icons */
+.icon {
+    font-size: 18px;
+    cursor: pointer;
+    margin: 0 3px;
+    position: relative;
+}
+
+/* Center icons */
+.icon-group {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+}
+
+/* Tooltip */
+.icon:hover::after {
+    content: attr(data-bs-title);
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    text-align: center;
+    z-index: 10;
+}
+
+/* Tooltip arrow */
+.icon:hover::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.85) transparent transparent transparent;
+    z-index: 10;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .sidebar {
+        width: 250px;
+    }
+    .main-content {
+        margin-left: 250px;
+        width: calc(100vw - 250px);
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+    .main-content {
+        margin-left: 200px;
+        width: calc(100vw - 200px);
+    }
+    .table-header, .table-row {
+        display: block;
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+}

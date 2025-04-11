@@ -1,0 +1,605 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+body {
+    font-family: "Poppins", sans-serif !important;
+}
+
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+:root {
+  --c-grey-100: #f4f6f8;
+  --c-grey-200: #e3e3e3;
+  --c-grey-300: #b2b2b2;
+  --c-grey-400: #7b7b7b;
+  --c-grey-500: #3d3d3d;
+  --c-blue-500: #0baf05;
+}
+
+/* Some basic CSS overrides */
+body {
+  line-height: 1.5;
+  min-height: 100vh;
+  padding-top: 20vh;
+  padding-bottom: 20vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* End basic CSS override */
+.timeline {
+  width: 85%;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 0 32px 32px;
+  border-left: 2px solid var(--c-grey-200);
+  font-size: 1.125rem;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 24px;
+}
+.timeline-item + * {
+  margin-top: 24px;
+}
+.timeline-item + .extra-space {
+  margin-top: 48px;
+}
+
+.new-comment {
+  width: 100%;
+}
+.new-comment input {
+  border: 1px solid var(--c-grey-200);
+  border-radius: 6px;
+  height: 48px;
+  padding: 0 16px;
+  width: 100%;
+}
+.new-comment input::-moz-placeholder {
+  color: var(--c-grey-300);
+}
+.new-comment input:-ms-input-placeholder {
+  color: var(--c-grey-300);
+}
+.new-comment input::placeholder {
+  color: var(--c-grey-300);
+}
+.new-comment input:focus {
+  border-color: var(--c-grey-300);
+  outline: 0;
+  box-shadow: 0 0 0 4px var(--c-grey-100);
+}
+
+.timeline-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: -52px;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 0 0 6px #fff;
+}
+.timeline-item-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.timeline-item-icon.faded-icon {
+  background-color: var(--c-grey-100);
+  color: var(--c-grey-400);
+}
+.timeline-item-icon.filled-icon {
+  background-color: var(--c-blue-500);
+  color: #fff;
+}
+
+.timeline-item-description {
+  display: flex;
+  padding-top: 6px;
+  gap: 8px;
+  color: var(--c-grey-400);
+}
+.timeline-item-description img {
+  flex-shrink: 0;
+}
+.timeline-item-description a {
+  color: var(--c-grey-500);
+  font-weight: 500;
+  text-decoration: none;
+}
+.timeline-item-description a:hover,
+.timeline-item-description a:focus {
+  outline: 0;
+  color: var(--c-blue-500);
+}
+
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+  aspect-ratio: 1/1;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+}
+.avatar.small {
+  width: 28px;
+  height: 28px;
+}
+.avatar img {
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.comment {
+  margin-top: 12px;
+  color: var(--c-grey-500);
+  border: 1px solid var(--c-grey-200);
+  box-shadow: 0 4px 4px 0 var(--c-grey-100);
+  border-radius: 6px;
+  padding: 16px;
+  font-size: 1rem;
+}
+
+/* Ensure all buttons and toggle switch are in a single row */
+.button-group {
+  display: flex;
+  align-items: center; /* Ensures vertical alignment */
+  gap: 10px; /* Space between items */
+  align-items: center;
+}
+
+/* Form switch container */
+.form-check {
+  display: flex;
+  align-items: center; /* Ensures switch is aligned */
+  height: 20px; /* Matches button height */
+  margin-top: 15px;
+}
+
+/* Hide the default checkbox */
+.form-check-input {
+  appearance: none;
+  width: 38px; /* Set consistent width */
+  height: 20px; /* Set consistent height */
+  background-color: #ccc;
+  border-radius: 10px;
+  position: relative;
+  outline: none;
+  transition: background 0.3s ease;
+  cursor: pointer;
+  vertical-align: middle; /* Ensures switch is centered */
+}
+
+/* Toggle circle */
+.form-check-input::before {
+  content: "";
+  position: absolute;
+  width: 14px; /* Smaller toggle circle */
+  height: 14px;
+  background: white;
+  border-radius: 50%;
+  top: 3px;
+  left: 3px;
+  transition: 0.3s ease-in-out;
+}
+
+/* When the switch is checked */
+.form-check-input:checked {
+  background-color: #0baf05; /* Green when active */
+}
+
+/* Move the toggle circle when checked */
+.form-check-input:checked::before {
+  left: 22px; /* Adjusted position */
+}
+
+/* Rounded Rectangular Badge */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  background-color: #ffffff; /* Light green background */
+  color: #0baf05; /* Green text */
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 20px; /* Fully rounded corners */
+  border: 1px solid #0baf05; /* Green border */
+  cursor: default; /* No click effect */
+  user-select: none; /* Prevents text selection */
+  margin-top: 12px;
+}
+
+/* Tooltip Styling */
+[data-tooltip] {
+  position: relative;
+  cursor: pointer;
+}
+
+/* Tooltip Text */
+[data-tooltip]:hover::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  bottom: 100%; /* Position above the button */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Show Tooltip on Hover */
+[data-tooltip]:hover::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Optional: Add arrow below tooltip */
+[data-tooltip]:hover::after {
+  content: "";
+  position: absolute;
+  bottom: calc(100% - 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.75) transparent transparent transparent;
+  opacity: 1;
+  visibility: visible;
+}
+
+.button {
+  border: 0;
+  padding: 0;
+  display: inline-flex;
+  vertical-align: middle;
+  margin-right: 4px;
+  margin-top: 12px;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  height: 32px;
+  padding: 0 8px;
+  background-color: var(--c-grey-100);
+  flex-shrink: 0;
+  cursor: pointer;
+  border-radius: 99em;
+}
+.button:hover {
+  background-color: var(--c-grey-200);
+}
+.button.square {
+  border-radius: 50%;
+  color: var(--c-grey-400);
+  width: 32px;
+  height: 32px;
+  padding: 0;
+}
+.button.square svg {
+  width: 24px;
+  height: 24px;
+}
+.button.square:hover {
+  background-color: var(--c-grey-200);
+  color: var(--c-grey-500);
+}
+
+.show-replies {
+  color: var(--c-grey-300);
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.show-replies svg {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+.show-replies:hover,
+.show-replies:focus {
+  color: var(--c-grey-500);
+}
+
+.avatar-list {
+  display: flex;
+  align-items: center;
+}
+.avatar-list > * {
+  position: relative;
+  box-shadow: 0 0 0 2px #fff;
+  margin-right: -8px;
+}
+
+/* leftbar############################### */
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between icon and text */
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  background-color: white;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 6px;
+}
+
+.button svg {
+  width: 20px;
+  height: 20px;
+  stroke: #333; /* Ensure stroke color is visible */
+}
+
+/* Make the whole page take full height */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: "Outfit", sans-serif;
+  overflow: hidden; /* Prevents body from scrolling */
+}
+
+/* Container (Full-page two-column layout) */
+.container {
+  display: flex;
+  height: 100vh; /* Full height of the viewport */
+  width: 100%;
+}
+
+/* Left Column Layout */
+/* Ensure the left column remains fixed */
+.left-column {
+  display: flex;
+  flex-direction: column;
+  width: 300px; /* Fixed width */
+  background-color: white;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  height: 100vh; /* Full height */
+  overflow: hidden; /* Prevents full column scrolling */
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+/* First Row: Back Button & Label */
+/* Fixes spacing and alignment for the header */
+.left-column .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensures "Back" and title are in one row */
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+/* Fix Back Button */
+.back-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 10px; /* Adjust padding to avoid too much space */
+  display: flex;
+  align-items: center;
+}
+
+/* Fix Title */
+.left-column h5 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  padding: 10px;
+  white-space: nowrap;
+}
+
+/* Second Row: Search Bar */
+/* Fix for Search Bar */
+.left-column .search-bar {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 10px; /* Reduce space */
+  margin-bottom: 20px;
+}
+/* ################################################################################### */
+/* Fix for Card Container (Scrollable) */
+.card-container {
+  flex-grow: 1;
+  overflow-y: auto; /* Enables scrolling */
+  max-height: 60vh; /* Limits the height to prevent taking full screen */
+  padding-right: 5px; /* Prevents scroll from touching edge */
+}
+/* Fix Individual Card Spacing */
+.card {
+  background: white;
+  padding: 15px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 10px; /* Adds spacing between cards */
+}
+
+.profile-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-content p {
+  margin: 2px 0;
+  font-size: 14px;
+}
+
+.arrow-right {
+  font-size: 16px;
+  color: gray;
+  cursor: pointer;
+}
+
+/* Custom scrollbar styling for a better look */
+.card-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.card-container::-webkit-scrollbar-thumb {
+  background: #b2b2b2;
+  border-radius: 10px;
+}
+/* ################################################################################### */
+/* Right Column (Scrollable Timeline) */
+.timeline-column {
+  flex: 1; /* Takes up remaining space */
+  margin-left: 300px; /* Ensure it starts after left column */
+  height: 100vh; /* Full height */
+  overflow-y: auto; /* Enables scrolling */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Timeline */
+.timeline {
+  width: 100%;
+  max-width: 900px;
+  padding: 32px 0 32px 32px;
+  border-left: 2px solid var(--c-grey-200);
+  font-size: 1.125rem;
+}
+
+/* Ensure full-page layout remains */
+@media (max-width: 1024px) {
+  /* Ensure full-page layout remains */
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0; /* Remove any unwanted padding */
+    font-family: "Outfit", sans-serif;
+    overflow: hidden; /* Prevents unnecessary scrolling */
+  }
+
+  /* Main Container */
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Ensures full height */
+    width: 100%;
+  }
+
+  /* Fix Left Column */
+  .left-column {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+  }
+
+  /* Fix Header Spacing */
+  .left-column .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px; /* Minimal padding */
+    margin: 0; /* Remove margin */
+    min-height: 50px; /* Keep it compact */
+  }
+
+  /* Back Button */
+  .back-button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0;
+  }
+
+  /* Title */
+  .left-column h5 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+  }
+
+  /* Search Bar */
+  .search-bar {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 0 0; /* Ensure no extra space at the top */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+
+  /* Fix Timeline Column */
+  .timeline-column {
+    margin-left: 0;
+    width: 100%;
+    height: auto;
+    overflow-y: auto;
+  }
+
+  /* Ensure Cards are Scrollable */
+  .card-container {
+    max-height: 50vh; /* Prevents full overflow */
+    overflow-y: auto; /* Enables scrolling */
+    margin-top: 5px; /* Minimal spacing */
+  }
+
+  /* Fix Individual Card Spacing */
+  .card {
+    margin-bottom: 8px;
+  }
+}

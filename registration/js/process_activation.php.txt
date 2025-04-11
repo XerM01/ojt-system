@@ -1,0 +1,47 @@
+<?php
+session_start();
+include '../0config/database.php';
+
+$response = ["success" => false, "message" => ""];
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $guid = trim($_POST['guid']);
+    
+    if (!isset($_SESSION['activation_email'])) {
+        $_SESSION['activation_message'] = "Session expired. Please request activation again.";
+        echo json_encode($response);
+        exit();
+    }
+    
+    $email = $_SESSION['activation_email'];
+    
+    // Check if GUID matches the one in the database
+    $stmt = $conn->prepare("SELECT users_id FROM users WHERE email = ? AND guid = ? AND activate = 0");
+    $stmt->bind_param("ss", $email, $guid);
+    $stmt->execute();
+    $stmt->store_result();
+    
+    if ($stmt->num_rows > 0) {
+        $stmt->close();
+        
+        // Activate the user account
+        $stmt = $conn->prepare("UPDATE users SET activate = 1 WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        if ($stmt->execute()) {
+            unset($_SESSION['activation_email']);
+            unset($_SESSION['activation_guid']);
+            
+            $response["success"] = true;
+            $response["redirect"] = "activation_success.php";
+        } else {
+            $response["message"] = "Error updating activation status.";
+        }
+        $stmt->close();
+    } else {
+        $response["message"] = "Invalid activation code or account already activated.";
+    }
+    
+    echo json_encode($response);
+    exit();
+}
+?>

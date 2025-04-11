@@ -1,0 +1,41 @@
+<?php
+session_start();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Account Activation</title>
+    <link rel="stylesheet" href="css/activation.css">
+    <script defer src="js/activation.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2 class="title">Student Account Activation</h2>
+        <p class="description">Check your mailbox to get your one-time pin code activation.</p>
+
+        <form action="activate_process.php" method="POST" id="activationForm">
+
+            <div class="row">
+                <label for="email">Email Address</label>
+                <input type="email" name="email" id="email" class="input-field" required>
+            </div>
+
+            <div class="row">
+                <label for="otp">Enter your OTP</label>
+                <input type="text" name="otp" id="otp" class="input-field" required>
+            </div>
+
+            <button type="submit" class="activate-btn">ACTIVATE</button>
+
+        </form>
+    </div>
+
+</body>
+
+</html>
