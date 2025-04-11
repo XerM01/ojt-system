@@ -1,0 +1,78 @@
+<!-- Logout Modal -->
+<div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <h2>Session Expired</h2>
+        <p>Your session has been logged out from another tab or expired.</p>
+        <button onclick="redirectToLogin()">OK</button>
+    </div>
+</div>
+
+<style>
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 999;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        padding: 20px;
+        background: white;
+        border: 1px solid #ccc;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        text-align: center;
+    }
+
+    .modal-content {
+        padding: 15px;
+    }
+
+    .modal button {
+        padding: 10px;
+        background: red;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    .modal button:hover {
+        background: darkred;
+    }
+</style>
+
+<script>
+    let isModalOpen = false; // Prevent modal from opening multiple times
+
+    function checkSession() {
+        fetch("../0config/session.php")
+            .then(response => response.text()) // Read response as text first
+            .then(text => {
+                console.log("Session Response:", text); // ✅ Debugging log
+
+                // Prevent parsing errors if the response is an HTML page
+                if (text.trim().startsWith("<")) {
+                    console.error("Unexpected HTML response instead of JSON:", text);
+                    return;
+                }
+
+                try {
+                    let data = JSON.parse(text); // Try parsing JSON
+                    if (data.status === "logged_out" && !isModalOpen) {
+                        isModalOpen = true; // Prevent multiple modals
+                        document.getElementById("logoutModal").style.display = "block";
+                    }
+                } catch (error) {
+                    console.error("Invalid JSON response:", text); // Debug response
+                }
+            })
+            .catch(error => console.error("Error checking session:", error));
+    }
+
+    // Run check every 5 seconds
+    setInterval(checkSession, 5000);
+
+    function redirectToLogin() {
+        window.location.href = "../login/login.php";
+    }
+</script>
